@@ -1,6 +1,9 @@
 import java.util.Scanner;
 public class Ejercicio1
 {
+	/**
+	 * Imprime una matriz tomada por parámetro.
+	 */
 	public static void imprimirMatriz(double[][] numero)
 	{
 		int FILAS = numero.length;
@@ -12,7 +15,10 @@ public class Ejercicio1
 			System.out.print("\n");
 		}
 	}
-	public static double cargarMatriz()
+	/**
+	 * Lee una matriz ingresada por el usuario.
+	 */
+	public static double[][] cargarMatriz()
 	{
 		int FILAS_IN, COLUMNAS_IN;
 		Scanner sc = new Scanner(System.in);
@@ -20,10 +26,17 @@ public class Ejercicio1
 		FILAS_IN = sc.nextInt();
 		System.out.print("Columnas: ");
 		COLUMNAS_IN = sc.nextInt();
+		double matrizIn[][] = new double[FILAS_IN][COLUMNAS_IN];
+		// Sea 'k' el número de fila y 'l' el número de columna
 		for (int k = 0; k < FILAS_IN; k++) {
 			for (int l = 0; l < FILAS_IN; l++) {
-				System.out.print("Columna " + l + ": ");
+				System.out.print("Elemento  (" + k + ", " +
+						l + "): ");
 				matrizIn[k][l] = sc.nextDouble();
+			}
+			System.out.print("\n");
+		}
+		return matrizIn;
 	}
 	public static void main(String[] args)
 	{
@@ -32,10 +45,5 @@ public class Ejercicio1
 		 * 2) Imprimir matriz
 		 */
 		imprimirMatriz(cargarMatriz());
-		// TEST
-		double temperaturaEnero[][] = {{30, 28, 40, 29, 29, 32},
-						{29.5, 34, 19, 35, 40, 41},
-						{25, 30, 13, 39, 47, 44}};
-		imprimirMatriz(temperaturaEnero);
 	}
 }
