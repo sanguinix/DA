@@ -29,7 +29,7 @@ public class Ejercicio1
 		double matrizIn[][] = new double[FILAS_IN][COLUMNAS_IN];
 		// Sea 'k' el número de fila y 'l' el número de columna
 		for (int k = 0; k < FILAS_IN; k++) {
-			for (int l = 0; l < FILAS_IN; l++) {
+			for (int l = 0; l < COLUMNAS_IN; l++) {
 				System.out.print("Elemento  (" + k + ", " +
 						l + "): ");
 				matrizIn[k][l] = sc.nextDouble();
