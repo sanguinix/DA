@@ -101,7 +101,8 @@ public class Ejercicio4
 			double mayorNota[] = buscarMayor(notas);
 			System.out.print("\nEl alumno que obtuvo mayor nota en" +
 					" el último exámen fue el alumno ("+
-					(int)mayorNota[0] + ") quien sacó un (" +
+					((int)mayorNota[0] + 1) +
+					") quien sacó un (" +
 					mayorNota[1] + ").\n");
 			break;
 		default:
@@ -133,9 +134,15 @@ public class Ejercicio4
 			System.out.print("\n--------------------------------");
 			System.out.print("\nOpción:");
 			opcionIn = sc.nextInt();
-			if (opcionIn == 0)
+			if (opcionIn != 0) {
+				selector(opcionIn, notas);
+			} else {
 				salir = true;
-			selector(opcionIn, notas);
+			}
+			//if (opcionIn == 0) {
+			//	salir = true;
+			//}
+			//selector(opcionIn, notas);
 		} while (!salir);
 		System.out.print("\n¡Fin del programa!");
 	}
