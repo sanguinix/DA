@@ -67,6 +67,22 @@ public class Ejercicio4
 		}
 	}
 	/**
+	 * Busca la mayor nota del último exámen
+	 */
+	public static double[] buscarMayor(double notas[][])
+	{
+		double mayor[] = new double[2];
+		int ALUMNOS = notas.length;
+		mayor[1] = 0;
+		for (int i = 0; i < ALUMNOS; i++) {
+			if (notas[i][5] > mayor[1]) {
+				mayor[0] = i;
+				mayor[1] = notas[i][5];
+			}
+		}
+		return mayor;
+	}
+	/**
 	 * Según la opción ingresada, ejecuta el correspondiente módulo.
 	 */
 	public static void selector(int opcion, double[][] notas)
@@ -82,6 +98,12 @@ public class Ejercicio4
 			escribirNotas(notas, (alumno - 1));
 			break;
 		case 3 :
+			double mayorNota[] = buscarMayor(notas);
+			System.out.print("\nEl alumno que obtuvo mayor nota en" +
+					" el último exámen fue el alumno ("+
+					((int)mayorNota[0] + 1) +
+					") quien sacó un (" +
+					mayorNota[1] + ").\n");
 			break;
 		default:
 			System.out.println("¡Opción inválida!");
@@ -112,9 +134,15 @@ public class Ejercicio4
 			System.out.print("\n--------------------------------");
 			System.out.print("\nOpción:");
 			opcionIn = sc.nextInt();
-			if (opcionIn == 0)
+			if (opcionIn != 0) {
+				selector(opcionIn, notas);
+			} else {
 				salir = true;
-			selector(opcionIn, notas);
+			}
+			//if (opcionIn == 0) {
+			//	salir = true;
+			//}
+			//selector(opcionIn, notas);
 		} while (!salir);
 		System.out.print("\n¡Fin del programa!");
 	}
