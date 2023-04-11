@@ -1,41 +1,44 @@
 public class Ejercicio5
 {
-	public static void comprobarMagia(double[][] cuadrado)
+	public static boolean comprobarMagia(int[][] cuadrado)
 	{
-		boolean esMagico = false;
-		int m = 0;
+		boolean esMagico = true;
 		int DIMENSION = cuadrado.length;
-		double sumaFilas[] = new double[DIMENSION];
-		double sumaColumnas[] = new double[DIMENSION];
-		double sumaDiagPpal[] = new double[DIMENSION];
-		double sumaDiagSecu[] = new double[DIMENSION];
+		int sumaDiagPpal = 0;
+		int sumaDiagSecu = 0;
+		// Verificar la suma de las diagonales
 		for (int i = 0; i < DIMENSION; i++) {
-			for (int j = 0; j < DIMENSION; j++) {
-				sumaFilas[i] += cuadrado[i][j];
-				sumaColumnas[j] += cuadrado[i][j];
-				//k diagPpal
-				//l diagSecu
-			}
+			sumaDiagPpal += cuadrado[i][i];
 		}
-		while (m < DIMENSION && !esMagico) {
-			// Comparar cada suma con la anterior
-			if (igual != sumaFilas[m]) {
-				esMagico = true;
+		for (int j = DIMENSION - 1; j >= 0; j--) {
+			sumaDiagSecu += cuadrado[j][j];
+		}
+		if (sumaDiagPpal != sumaDiagSecu) {
+			return false;
+		}
+		// Verificar la suma de las filas y columnas
+		for (int k = 0; k < DIMENSION; k++) {
+			int sumaFila = 0;
+			int sumaColumna = 0;
+			for (int l = 0; l < DIMENSION; l++) {
+				sumaFila += cuadrado[k][l];
+				sumaColumna += cuadrado[l][k];
 			}
-			m++;
+			if (sumaFila != sumaDiagPpal ||
+					sumaColumna != sumaDiagPpal) {
+				return false;
+			}
 		}
 		return esMagico;
-		// Test
-		for (int k = 0; k < DIMENSION; k++) {
-			System.out.print("Suma fila " + k + ":" + sumaFilas[k]);
-			System.out.print("\n");
-			System.out.print("Suma columna " + k + ":" + sumaColumnas[k]);
-			System.out.print("\n------------------\n");
-		}
 	}
+	// TEST
 	public static void main(String[] args)
 	{
-		double testCuadrado[][] = {{4, 9, 2}, {3, 5, 7}, {8, 1, 6}};
-		comprobarMagia(testCuadrado);
+		int testCuadrado[][] = {{4, 9, 2}, {3, 5, 7}, {8, 1, 6}};
+		if (comprobarMagia(testCuadrado)) {
+			System.out.println("La matriz es un cuadrado mágico!");
+		} else {
+			System.out.println("La matriz no es un cuadrado mágico");
+		}
 	}
 }
