@@ -42,9 +42,9 @@ public class Terreno
 			"\nBase: " + this.getBase() +
 			"\nAltura: " + this.getAltura());
 	}
-	//public boolean equals(Terreno ter) {
-	//	return (ter == getCodigo());
-	//}
+	public boolean equals(Terreno ter) {
+		return (this.codigo == ter.getCodigo());
+	}
 	/**
 	 * Modificadores
 	 */
@@ -70,6 +70,6 @@ public class Terreno
 		return (base * altura);
 	}
 	public double valor(double precio) {
-		return (73745);
+		return (precio * this.superficie());
 	}
 }
