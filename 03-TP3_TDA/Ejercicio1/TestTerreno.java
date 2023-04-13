@@ -2,7 +2,8 @@ import misClases.Terreno;
 import java.util.Scanner;
 public class TestTerreno
 {
-	Scanner scan;
+	// Se crea un objeto global de la clase Scanner
+	static Scanner scan = new Scanner(System.in);
 	public static void linea()
 	{
 		System.out.println("\n---------------------------");
