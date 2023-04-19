@@ -69,7 +69,7 @@ public class Avion
 	}
 	public String toString()
 	{
-		return ("Identificador: " + this.identificador + "\n" +
+		return ("\nIdentificador: " + this.identificador + "\n" +
 			"Modelo: " + this.modelo + "\n" +
 			"Cantidad de asientos: " + this.cantidadAsientos + "\n" +
 			"Kilómetros recorridos: " + this.kmRecorridos + "\n"+
