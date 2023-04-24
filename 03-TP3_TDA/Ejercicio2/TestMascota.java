@@ -18,7 +18,6 @@ public class TestMascota
 		linea();
 		System.out.print("\nOpción: ");
 		int opcionIn = scan.nextInt();
-		//System.out.print("\n");
 		linea();
 		return (opcionIn);
 	}
