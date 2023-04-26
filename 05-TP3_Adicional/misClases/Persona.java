@@ -4,6 +4,9 @@ public class Persona
 	/**
 	 * Atributos
 	 */
+	private int documento;
+	private String nombre;
+	private String apellido;
 	/**
 	 * Constructores
 	 */
