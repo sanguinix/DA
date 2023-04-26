@@ -1,71 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created by diasvg.py -->
-<svg width="19.850cm" height="24.300cm" viewBox="19.250 2.387 19.850 24.300"
- xmlns="http://www.w3.org/2000/svg"
- xmlns:xlink="http://www.w3.org/1999/xlink">
-<!-- Layer: Fondo -->
-<g id="Fondo">
-<!-- UML - Class -->
-<rect x="19.300" y="2.437" width="19.750" height="1.400" fill="#FFFFFF" stroke="#000000" stroke-width="0.100" />
-<text x="29.175" y="3.387"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
-Auto</text>
-<rect x="19.300" y="3.837" width="19.750" height="6.600" fill="#FFFFFF" stroke="#000000" stroke-width="0.100" />
-<text x="19.450" y="4.537"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
--color: CADENA</text>
-<text x="19.450" y="5.337"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
--marca: CADENA</text>
-<text x="19.450" y="6.137"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
--modelo: CADENA</text>
-<text x="19.450" y="6.938"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
--agno: ENTERO</text>
-<text x="19.450" y="7.738"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
--caja: CADENA</text>
-<text x="19.450" y="8.538"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
--capacidadTanque: REAL</text>
-<text x="19.450" y="9.338"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
--combustibleActual: REAL</text>
-<text x="19.450" y="10.137"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
--kmRecorridos: REAL</text>
-<rect x="19.300" y="10.437" width="19.750" height="16.200" fill="#FFFFFF" stroke="#000000" stroke-width="0.100" />
-<text x="19.450" y="11.137"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+Auto()</text>
-<text x="19.450" y="11.937"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+Auto(col:CADENA,mar:CADENA,mod:CADENA,aaa:ENTERO,</text>
-<text x="19.450" y="12.737"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-      caj:CADENA,cap:REAL,com:REAL,kmR:REAL)</text>
-<text x="19.450" y="13.537"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+setColor(col:CADENA): Ø</text>
-<text x="19.450" y="14.337"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+setMarca(mar:CADENA): Ø</text>
-<text x="19.450" y="15.137"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+setModelo(mod:CADENA): Ø</text>
-<text x="19.450" y="15.937"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+setAgno(aaa:ENTERO): Ø</text>
-<text x="19.450" y="16.737"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+setCaja(caj:CADENA): Ø</text>
-<text x="19.450" y="17.537"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+setCapacidadTanque(cap:REAL): Ø</text>
-<text x="19.450" y="18.337"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+setCombustibleActual(com:REAL): Ø</text>
-<text x="19.450" y="19.137"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+setkmRecorridos()</text>
-<text x="19.450" y="19.937"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+getColor(): CADENA</text>
-<text x="19.450" y="20.737"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+getMarca(): CADENA</text>
-<text x="19.450" y="21.537"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+getModelo(): CADENA</text>
-<text x="19.450" y="22.337"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+getAgno(): ENTERO</text>
-<text x="19.450" y="23.137"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+getCaja(): CADENA</text>
-<text x="19.450" y="23.938"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+getCapacidadTanque(): REAL</text>
-<text x="19.450" y="24.738"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+getCombustibleActual(): REAL</text>
-<text x="19.450" y="25.538"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+getKmRecorridos(): REAL</text>
-<text x="19.450" y="26.338"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
-+toString(): CADENA</text>
-</g>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="20cm" height="25cm" viewBox="385 47 397 487" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Fondo">
+    <g>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="386" y="48.75" width="395" height="28"/>
+      <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="583.5" y="67.6016">Auto</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="386" y="76.75" width="395" height="132"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="90.6312">-agno: ENTERO</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="106.631">-capacidadTanque: REAL</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="122.631">-combustibleActual: REAL</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="138.631">-kmRecorridos: REAL</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="154.631">-color: CADENA</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="170.631">-marca: CADENA</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="186.631">-modelo: CADENA</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="202.631">-caja: CADENA</text>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="386" y="208.75" width="395" height="324"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="222.631">+Auto()</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="238.631">+Auto(aa:ENTERO,cap:REAL,com:REAL,km:REAL,</text>
+      <text xml:space="preserve" font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="254.631">      col:CADENA,mar:CADENA,mod:CADENA,caj:CADENA)</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="270.631">+setAgno(aa:ENTERO): Ø</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="286.631">+setCapacidadTanque(cap:REAL): Ø</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="302.631">+setCombustibleActual(com:REAL): Ø</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="318.631">+setkmRecorridos(km:REAL): Ø</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="334.631">+setColor(col:CADENA): Ø</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="350.631">+setMarca(mar:CADENA): Ø</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="366.631">+setModelo(mod:CADENA): Ø</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="382.631">+setCaja(caj:CADENA): Ø</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="398.631">+getAgno(): ENTERO</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="414.631">+getCapacidadTanque(): REAL</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="430.631">+getCombustibleActual(): REAL</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="446.631">+getKmRecorridos(): REAL</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="462.631">+getColor(): CADENA</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="478.631">+getMarca(): CADENA</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="494.631">+getModelo(): CADENA</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="510.631">+getCaja(): CADENA</text>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="389" y="526.631">+toString(): CADENA</text>
+    </g>
+  </g>
 </svg>
