@@ -32,7 +32,7 @@ public class TemperaturasMedias
 	 */
 	public static int mayorTemperatura(double[][] maximasMensuales)
 	{
-		int mayor;// Será el número de mes con la mayor temperatura
+		int mayor = 0;// Será el número de mes con la mayor temperatura
 		double suma;
 		double promedio = 0;
 		double[] promediosHistoricos = new double[12];
@@ -40,21 +40,24 @@ public class TemperaturasMedias
 			suma = 0;
 			for (int agno = 0; agno < 3; agno++) {
 				suma += maximasMensuales[agno][mes];
-				promedio = suma / 3;
-				promediosHistoricos[mes] = promedio;
 			}
+			promedio = suma / 3;
+			promediosHistoricos[mes] = promedio;
 			// Si el promedio del mes actual es mayor al del mes
 			// anterior, lo reemplaza
 			if (mes > 0) {
-				if (promedio > promediosHistoricos[mes - 1])
-				mayor = mes;
+				if (promedio > promediosHistoricos[mes - 1]) {
+					mayor = mes;
+				}
 			}
 		}
-		return (mayor);
+		return (mayor + 1);
 	}
 	public static void main(String[] args)
 	{
 		System.out.print("\n\t- TEST -");
 		double[][] maximasMensuales = cargarTemperaturas();
+		System.out.println("\nMes de mayor temperatura (promedio)");
+		System.out.println(mayorTemperatura(maximasMensuales));
 	}
 }
