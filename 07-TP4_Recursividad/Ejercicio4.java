@@ -24,6 +24,6 @@ public class Ejercicio4
 	 */
 	public static void main(String[] args)
 	{
-		System.out.println("" + iguales(1211));
+		System.out.println("" + iguales(91999));
 	}
 }
