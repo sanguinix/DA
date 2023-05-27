@@ -80,43 +80,95 @@ public class RtadoEncuesta
 		}
 		return (todas);
 	}
-	/**
-	 * El arreglo 'cantVotos' acumula la cantidad de votos de cada lista
-	 * por día:
-	 * cantVotos = [votosListA, votosListB, votosListC, votosBlanco]
-	 */
-	public String listaGanadora(RtadoEncuesta[] encta)
+	public String listaGanadora(rtadoEncuesta[][] unResultado, int semana)
 	{
+		String lista;
 		int i;
-		int listaGanadora;
-		int mayorCantVotos = -1;
-		int[] cantVotos = new int[4];
-		for (i = 0; i < encta.length; i++) {
-			cantVotos[0] += encta[i].getVotosListA();
-			cantVotos[1] += encta[i].getVotosListB();
-			cantVotos[2] += encta[i].getVotosListC();
-			cantVotos[3] += encta[i].getVotosBlanco();
+		int dia;
+		int votosA = 0;
+		int votosB = 0;
+		int votosC = 0;
+		int mayor = 0;
+		int contador = 1;
+		for (dia = 0; dia < 7; dia++) {
+			votosA += unResultado[semana][dia].getVotosListA();
+			votosB += unResultado[semana][dia].getVotosListB();
+			votosC += unResultado[semana][dia].getVotosListC();
 		}
-		for (i = 0; i < cantVotos.length; i++) {
-			if (cantVotos[i] > mayorCantVotos) {
-				mayorCantVotos = cantVotos[i];
-				listaGanadora = i;
+		int[] votos = {votosA, votosB, votosC};
+		for (i = 0; i < votos.length; i++) {
+			if (mayor < votos[i]) {
+				mayor = i;
+			} else if (mayor == votos[i]) {
+				contador++;
 			}
 		}
-		// TODO Desarrollar caso de empate (a, b), (a, c), (b, c)
-		switch (listaGanadora) {
-		case 0:
-			resultado = "Lista ganadora: A";
-			break;
+		switch (contador) {
 		case 1:
-			resultado = "Lista ganadora: B";
+			lista = switch (mayor) {
+			case 0 -> "lista A";
+			case 1 -> "lista B";
+			case 2 -> "lista C";
+			default -> "ERROR";
+			};
 			break;
 		case 2:
-			resultado = "Lista ganadora: C";
+			if (votosA == votosB) {
+				lista = "empate listaA, listaB";
+			} else if (votosA == votosC) {
+				lista = "empate listaA, listaC";
+			} else {
+				lista = "empate listaB, listaC";
+			}
 			break;
-		case 3:
-			resultado = "La mayoría de votos fueron en blanco.";
+		default:
+			lista = "empate listaA,listaB,listaC";
 			break;
 		}
+		return (lista);
+	}
+	public int cantVotosBlanco(rtadoEncuesta[][] unResultado, int dia)
+	{
+		int votos = 0, fila;
+		for (fila = 0; fila < 4; fila++) {
+			votos += unResultado[fila][dia].getVotosBlanco();
+		}
+		return (votos);
+	}
+	public String mayorCantVotos(rtadoEncuesta[][] unResultado, int dia)
+	{
+		String lista;
+		int i;
+		int semana;
+		int votosA = 0;
+		int votosB = 0;
+		int votosC = 0;
+		int mayor = 0;
+		for (semana = 0; semana < unResultado.length; semana++) {
+			votosA += unResultado[semana][dia].getVotosListA();
+			votosB += unResultado[semana][dia].getVotosListB();
+			votosC += unResultado[semana][dia].getVotosListC();
+		}
+		int[] votos = {votosA, votosB, votosC};
+		for (i = 0; i < votos.length; i++) {
+			if (mayor < votos[i]) {
+				mayor = i;
+			}
+		}
+		switch (mayor) {
+		case 0:
+			lista = "lista A";
+			break;
+		case 1:
+			lista = "lista B";
+			break;
+		case 2:
+			lista = "lista C";
+			break;
+		default:
+			lista = "ERROR";
+			break;
+		}
+		return lista;
 	}
 }
