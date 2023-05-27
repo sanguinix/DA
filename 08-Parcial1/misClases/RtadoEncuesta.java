@@ -87,23 +87,23 @@ public class RtadoEncuesta
 	 */
 	public String listaGanadora(RtadoEncuesta[] encta)
 	{
-		int i = 0;
+		int i;
 		int listaGanadora;
 		int mayorCantVotos = -1;
 		int[] cantVotos = new int[4];
-		while (i < encta.length) {
+		for (i = 0; i < encta.length; i++) {
 			cantVotos[0] += encta[i].getVotosListA();
 			cantVotos[1] += encta[i].getVotosListB();
 			cantVotos[2] += encta[i].getVotosListC();
 			cantVotos[3] += encta[i].getVotosBlanco();
 		}
-		i = 0;
-		while (i < cantVotos.length) {
+		for (i = 0; i < cantVotos.length; i++) {
 			if (cantVotos[i] > mayorCantVotos) {
-				mayorCantVotos = cantVotos[1];
+				mayorCantVotos = cantVotos[i];
 				listaGanadora = i;
 			}
 		}
+		// TODO Desarrollar caso de empate (a, b), (a, c), (b, c)
 		switch (listaGanadora) {
 		case 0:
 			resultado = "Lista ganadora: A";
@@ -117,5 +117,6 @@ public class RtadoEncuesta
 		case 3:
 			resultado = "La mayoría de votos fueron en blanco.";
 			break;
+		}
 	}
 }
