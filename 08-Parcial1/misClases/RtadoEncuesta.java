@@ -135,7 +135,7 @@ public class RtadoEncuesta
 		}
 		return (votos);
 	}
-	public String mayorCantVotos(rtadoEncuesta[][] unResultado, int dia)
+	public String mayorCantVotos(RtadoEncuesta[][] unResultado, int dia)
 	{
 		String lista;
 		int i;
@@ -169,6 +169,6 @@ public class RtadoEncuesta
 			lista = "ERROR";
 			break;
 		}
-		return lista;
+		return (lista);
 	}
 }
