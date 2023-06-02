@@ -10,16 +10,42 @@ public class Ejercicio1
 			aux = n + func(n - 1);
 		return (aux);
 	}
-	/**
-	 * n |            aux = n + func(n - 1)            | RETORNO
-	 * ---------------------------------------------------------
-	 * 0 | 0                                           |
-	 * 1 | 1 + func(1 - 1) = 1 + func(0) = 1 + 0 = 1   |
-	 * 2 | 2 + func(2 - 1) = 2 + func(1) = 2 + 1 = 3   |
-	 * 3 | 3 + func(3 - 1) = 3 + func(2) = 3 + 3 = 6   |
-	 * 4 | 4 + func(4 - 1) = 4 + func(3) = 4 + 6 = 10  |
-	 * 5 | 5 + func(5 - 1) = 5 + func(4) = 5 + 10 = 15 |
-	 */
 	public static int funcIterativa(int n)
 	{
 		int aux;
+	}
+	public static void main(String[] args) {
+		System.out.println(func(10));
+	}
+}
+/**
+ * Traza Apilado
+ * n  | aux          | RETORNO
+ * ------------------------
+ * 10 | 10 + func(9) |
+ * 9  | 9 + func(8)  |
+ * 8  | 8 + func(7)  |
+ * 7  | 7 + func(6)  |
+ * 6  | 6 + func(5)  |
+ * 5  | 5 + func(4)  |
+ * 4  | 4 + func(3)  |
+ * 3  | 3 + func(2)  |
+ * 2  | 2 + func(1)  |
+ * 1  | 1 + func(0)  |
+ * 0  | 0            | 0
+ * 
+ * Traza Desapilado
+ * n  | aux | RETORNO
+ * ------------------
+ * 0  | 0   | 0
+ * 1  | 1   | 1
+ * 2  | 3   | 3
+ * 3  | 6   | 6
+ * 4  | 10  | 10
+ * 5  | 15  | 15
+ * 6  | 21  | 21
+ * 7  | 28  | 28
+ * 8  | 36  | 36
+ * 9  | 45  | 45
+ * 10 | 55  | 55
+ */

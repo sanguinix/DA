@@ -27,3 +27,18 @@ public class Ejercicio4
 		System.out.println("" + iguales(1211));
 	}
 }
+/**
+ * Traza Apilado
+ * num   | igual         | RETORNO
+ * -------------------------------
+ * 12111 | iguales(1211) |
+ * 1211  | iguales(121)  |
+ * 121   | false         | false
+ *
+ * Traza Desapilado
+ * num   | igual | RETORNO
+ * -----------------------
+ * 121   | false | false
+ * 1211  | false | false
+ * 12111 | false | false
+ */
