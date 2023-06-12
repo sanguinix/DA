@@ -1,0 +1,16 @@
+1 Algoritmo Ejemplo2
+2 	Leer (letra)
+3 	Si (letra='A' OR letra='E' OR letra='I' OR letra='O'OR letra='U')
+4 		Si (letra='A') entonces
+5 			Escribir( ’Es la vocal A’)
+6 		SINO
+7 			Si (letra='E') entonces
+8 				Escribir( ’Es la vocal E’)
+9 			SINO
+10				Escribir( ’Es otra vocal’)
+11			FIN SI
+12		FIN SI
+13	SINO
+14		Escribir( ’No es vocal’)
+15	FIN SI
+16 Fin Algoritmo Ejemplo2
