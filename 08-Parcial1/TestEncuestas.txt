@@ -1,0 +1,61 @@
+(**
+ * Muestra la opciones posibles, lee una opción ingresada y la retorna
+ *)
+MODULO menu() RETORNO ENTERO
+	ENTERO opcion
+	ESCRIBIR("----MENU----")
+	ESCRIBIR("1) Verificar si se realizaron todas las encuestas en una semana.")
+	ESCRIBIR("2) Ver lista ganadora en una semana.")
+	ESCRIBIR("3) Ver votos en blanco en un día.")
+	ESCRIBIR("4) Ver lista ganadora en un día.")
+	ESCRIBIR("0) SALIR.")
+	ESCRIBIR("------------")
+	ESCRIBIR("Elija una opción del menú: ")
+	LEER(opcion)
+	RETORNO (opcion)
+FIN MODULO menu
+ALGORITMO principal() RETORNO Ø
+	(**
+	 * Matriz de 4 filas x 3 columnas, por el enunciado se supone
+	 * ya cargada, aquí se crea para mayor redundancia sobre su dimensión
+	 *)
+	RtadoEncuesta[][] encuestas <-- NUEVO RtadoEncuesta[4][7]
+	ENTERO opcionIn
+	REPETIR
+		opcionIn <-- menu()
+		SEGUN (opcionIn) HACER
+		CASO 0:
+			ESCRIBIR("Fin del programa.")
+		CASO 1:
+			LOGICO todas
+			ENTERO semana
+			ESCRIBIR("Ingrese la semana a verificar: ")
+			LEER(semana)
+			todas <-- RtadoEncuesta.todasLasEncuestas(encuestas, semana)
+			SI (todas) ENTONCES
+				ESCRIBIR("Se realizaron todas las encuestas.")
+			SINO ENTONCES
+				ESCRIBIR("No se realizaron todas las encuestas.")
+			FIN SI
+		CASO 2:
+			ENTERO semana
+			CADENA resultado
+			ESCRIBIR("Ingrese la semana a ver: ")
+			LEER(semana)
+			resultado <-- RtadoEncuesta.listaGanadora(encuesta[semana])
+			ESCRIBIR(resultado)
+		CASO 3:
+			ENTERO dia
+			ESCRIBIR("Ingrese el número de día: ")
+			LEER(dia)
+			votos <-- RtadoEncuesta.cantVotosBlanco(encuesta, dia)
+			ESCRIBIR("Ese día hubo " + votos + " votos en blanco.")
+		CASO 4:
+			ENTERO dia
+			ENTERO lista
+			ESCRIBIR("Ingrese el número de día: ")
+			LEER(dia)
+			lista <-- mayorCantVotos(encuestas, dia)
+			ESCRIBIR("Ese día la lista ganadora fué: " + lista)
+	MIENTRAS (opcionIn <> 0)
+FIN ALGORITMO principal
