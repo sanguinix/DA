@@ -13,7 +13,7 @@ public class Alumno
 	 * Constructores
 	 */
 	public Alumno() {}
-	public Alumno(int leg, int gr, double promGral, String nom, String ape)
+	public Alumno(String ape, String nom, int leg, int gr, double promGral)
 	{
 		this.legajo = leg;
 		this.grado = gr;
@@ -35,6 +35,14 @@ public class Alumno
 	/**
 	 * Visualizadores
 	 */
+	public String getNombre()
+	{
+		return (this.nombre);
+	}
+	public int getLegajo()
+	{
+		return (this.legajo);
+	}
 	public int getGrado()
 	{
 		return (this.grado);
@@ -48,10 +56,11 @@ public class Alumno
 	 */
 	public String toString()
 	{
-		return ("Nombre: " + this.nombre
-			+ "Apellido: " + this.apellido
-			+ "Legajo: " + this.legajo
-			+ "Grado: " + this.grado
-			+ "Promedio General: " + this.promedioGeneral);
+		return ("| Apellido: " + this.apellido
+			+ " | Nombre: " + this.nombre
+			+ " | Legajo: " + this.legajo
+			+ " | Grado: " + this.grado
+			+ " | Promedio General: " + this.promedioGeneral
+			+ " |");
 	}
 }
