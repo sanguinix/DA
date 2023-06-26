@@ -20,7 +20,7 @@ public class SistemaAlumnos
 	 */
 	public static int mostrarMenu()
 	{
-		int opcion = 0;
+		int opcion;
 		System.out.println("--------------------------------");
 		System.out.println("              MENU");
 		System.out.println("--------------------------------");
@@ -33,6 +33,7 @@ public class SistemaAlumnos
 		System.out.println("5) Ver la cantidad de vacantes del colegio");
 		System.out.println("6) Ver para un grado y legajo la posicion "
 			+ "en la fila");
+		System.out.println("0) Salir
 		System.out.println("--------------------------------");
 		System.out.println("Ingrese una opción: ");
 		opcion = scan.nextInt();
@@ -154,16 +155,104 @@ public class SistemaAlumnos
 		}
 		return (desaprobados);
 	}
+	/**
+	 * Retorna true si la matriz tiene algún valor cargado
+	 */
+	public static boolean verificarMatrizCargada(Alumno[][] unaMatriz)
+	{
+		boolean tieneValor = false;
+		int i;
+		int j;
+		while (i < unaMatriz.length && !tieneValor) {
+			while (j < unaMatriz[0].length) {
+				if (unaMatriz[i][j] != null)
+					tieneValor = true;
+			}
+		}
+		return (tieneValor);
+	}
+	/**
+	 * Busca un alumno en el listado de repitentes y retorna
+	 * true si fue encontrado (mediante búsqueda binaria)
+	 */
+	public static boolean buscarRepitente(Alumno unAlumno, Alumno[] repitentes)
+	{
+		boolean encontrado = false;
+		int inicio = 0;
+		int medio;
+		int fin = repitentes.length - 1;
+		int legajo = unAlumno.getLegajo();
+		do {
+			medio = (inicio + fin) / 2;
+			if (repitentes[medio] == legajo) {
+				encontrado = true;
+			} else if (repitentes[medio] > legajo) {
+			// `legajo` debe estar en el intervalo izquierdo
+				fin = medio;
+			} else {
+			// `legajo` debe estar en el intervalo derecho
+				inicio = medio + 1;
+			}
+		} while (!encontrado && (fin >= inicio));
+		return (encontrado);
+	}
+	/**
+	 * Según el promedio, se pasa o no de grado a los alumnos
+	 */
+	public static Alumno[][] pasarDeGrado(Alumno[][] alumnos, Alumno[] repitentes)
+	{
+		int i;
+		int j;
+		Alumno[][] actualizados = new Alumno[7][30];
+		for (i = 0; i < alumnos.length; i++) {
+			while (j < alumnos[0].length && (alumnos[i][j] != null)) {
+				Alumno alumnito = alumnos[i][j];
+				if (buscarRepitente(alumnito);
+	}
 	public static void main(String[] args)
 	{
-		/**
-		 * Rutas relativas a los ficheros de lectura
-		 */
+		// Rutas relativas a los ficheros de lectura
 		String listaAlumnos = "Data/ListaAlumnos.txt";
 		String listaDesaprobados = "Data/ListaDesaprobados.txt";
-		Alumno[][] infoAlumnos = cargarAlumnos(listaAlumnos);
-		int[] legajosRepitentes = cargarAlumnosDes(listaDesaprobados);
-		int opcionIn = mostrarMenu();
+		do {
+			// Menú
+			int opcionIn = mostrarMenu();
+			switch (opcionIn) {
+			case 1:
+				Alumno[][] infoAlumnos = cargarAlumnos(listaAlumnos);
+				int[] legajosRepitentes = cargarAlumnosDes(listaDesaprobados);
+				System.out.println("¡Alumnos cargados!");
+				break;
+			case 2:
+				if (!verificarMatrizCargada(infoAlumnos)) {
+					System.out.println("¡Primero debe cargar la información!");
+				} else {
+					infoAlumnos = pasarDeGrado(infoAlumnos, legajosRepitentes);
+				}
+				break;
+			case 3:
+				if (!verificarMatrizCargada(infoAlumnos)) {
+					System.out.println("¡Primero debe cargar la información!");
+				} else {
+					pasarDeGrado();
+				}
+				break;
+			case 4:
+				if (!verificarMatrizCargada(infoAlumnos)) {
+					System.out.println("¡Primero debe cargar la información!");
+				} else {
+					pasarDeGrado();
+				}
+				break;
+			case 5:
+				//TODO
+				break;
+			case 6:
+				//TODO
+				break;
+			}
+		} while (opcionIn != 0);
+		//////// TEST ////////
 		System.out.println("TEST...XD");
 		for (int i = 0; i < legajosRepitentes.length; i++) {
 			System.out.println(legajosRepitentes[i]);
