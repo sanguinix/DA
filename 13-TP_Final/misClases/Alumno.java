@@ -54,6 +54,14 @@ public class Alumno
 	/**
 	 * Propios del Tipo
 	 */
+	public void promover()
+	{
+		if (this.grado < 7) {
+			this.grado += 1;
+		} else {
+			this.grado = -1;
+		}
+	}
 	public String toString()
 	{
 		return ("| Apellido: " + this.apellido

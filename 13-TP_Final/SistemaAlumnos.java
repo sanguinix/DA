@@ -16,31 +16,43 @@ public class SistemaAlumnos
 	 */
 	static Scanner scan = new Scanner(System.in);
 	/**
+	 * Imprime una línea divisoria
+	 */
+	public static void linea()
+	{
+		System.out.print("\n--------------------------------\n");
+	}
+	/**
 	 * Menú mostrado al inicio del programa
 	 */
-	public static int mostrarMenu()
+	public static short mostrarMenu()
 	{
-		int opcion;
-		System.out.println("--------------------------------");
-		System.out.println("              MENU");
-		System.out.println("--------------------------------");
-		System.out.println("1) Cargar información de alumnos");
-		System.out.println("2) Pasar de grado a los alumnos");
-		System.out.println("3) Ver para un grado, la lista de alumnos "
-			+ "ordenada por apellido y nombre en forma ascendente");
-		System.out.println("4) Ver los datos de los alumnos egresados "
-			+ "ordenados según su promedio en forma descendente");
-		System.out.println("5) Ver la cantidad de vacantes del colegio");
-		System.out.println("6) Ver para un grado y legajo la posicion "
-			+ "en la fila");
-		System.out.println("0) Salir
-		System.out.println("--------------------------------");
-		System.out.println("Ingrese una opción: ");
-		opcion = scan.nextInt();
+		boolean valida = false;
+		short opcion;
+		do {
+			linea();
+			System.out.println("\t\tMENU");
+			linea();
+			System.out.println("1) Cargar información de alumnos");
+			System.out.println("2) Pasar de grado a los alumnos");
+			System.out.println("3) Ver para un grado, la lista de alumnos "
+				+ "ordenada por apellido y nombre en forma ascendente");
+			System.out.println("4) Ver los datos de los alumnos egresados "
+				+ "ordenados según su promedio en forma descendente");
+			System.out.println("5) Ver la cantidad de vacantes del colegio");
+			System.out.println("6) Ver para un grado y legajo la posicion "
+				+ "en la fila");
+			System.out.println("0) Salir");
+			linea();
+			System.out.println("Ingrese una opción: ");
+			opcion = scan.nextShort();
+			if ((opcion >= 0) && (opcion <= 6))
+				valida = true;
+		} while (!valida);
 		return (opcion);
 	}
 	/**
-	 * Módulo de creación de objetos `Alumno`  y carga de matriz de Alumnos
+	 * Módulo de creación de objetos `Alumno` y carga de matriz de `Alumno`
 	 */
 	public static Alumno[][] cargarAlumnos(String listaAlumnos)
 	{
@@ -104,16 +116,16 @@ public class SistemaAlumnos
 		return (infoAlumnos);
 	}
 	/**
-	 * Módulo de asignación de objeto alumno a una matriz -según grado-
+	 * Asignación de objeto de clase Alumno a una matriz -según grado-
 	 */
-	public static void asignarAlumno(Alumno[][] infoAlum, Alumno alum)
+	public static void asignarAlumno(Alumno[][] alumnos, Alumno alumno)
 	{
 		boolean libre = false;
 		int i = 0;
-		int grado = alum.getGrado();
-		while (i < infoAlum[grado - 1].length && !libre) {
-			if (infoAlum[grado - 1][i] == null) {
-				infoAlum[grado - 1][i] = alum;
+		int grado = alumno.getGrado();
+		while ((i < alumnos[grado - 1].length) && !libre) {
+			if (alumnos[grado - 1][i] == null) {
+				alumnos[grado - 1][i] = alumno;
 				libre = true;
 			}
 			i++;
@@ -157,25 +169,62 @@ public class SistemaAlumnos
 	}
 	/**
 	 * Retorna true si la matriz tiene algún valor cargado
+	 * -Requerida por `main`, no puede ejecutar funciones si no tiene
+	 * datos cargados
 	 */
 	public static boolean verificarMatrizCargada(Alumno[][] unaMatriz)
 	{
 		boolean tieneValor = false;
-		int i;
+		int i = 0;
 		int j;
 		while (i < unaMatriz.length && !tieneValor) {
+			j = 0;
 			while (j < unaMatriz[0].length) {
 				if (unaMatriz[i][j] != null)
 					tieneValor = true;
+				j++;
 			}
+			i++;
 		}
 		return (tieneValor);
 	}
 	/**
-	 * Busca un alumno en el listado de repitentes y retorna
-	 * true si fue encontrado (mediante búsqueda binaria)
+	 * Intercambia dos posiciones en un arreglo de ENTEROS
+	 * -Requerido por `ordenarRepitentes`-
 	 */
-	public static boolean buscarRepitente(Alumno unAlumno, Alumno[] repitentes)
+	public static void intercambiar(int[] arreglo, int indice)
+	{
+		int auxiliar = arreglo[indice];
+		arreglo[indice] = arreglo[indice + 1];
+		arreglo[indice + 1] = auxiliar;
+	}
+	/**
+	 * Ordena un arreglo de legajos ENTEROS mediante el algoritmo de
+	 * ordenamiento de burbuja mejorado, en orden ascendente
+	 * -Requerido por `main`-
+	 */
+	public static void ordenarRepitentes(int[] legajos)
+	{
+		boolean ordenado = false;
+		int i = legajos.length - 1;
+		int j;
+		while ((i > 0) && !ordenado) {
+			ordenado = true;
+			for (j = 0; j < i; j++) {
+				if (legajos[j] > legajos[j + 1]) {
+					ordenado = false;
+					intercambiar(legajos, j);
+				}
+			}
+			i--;
+		}
+	}
+	/**
+	 * Busca un alumno en el listado de repitentes y retorna TRUE
+	 * si fue encontrado (mediante búsqueda binaria)
+	 * -Requerido por `pasarDeGrado`-
+	 */
+	public static boolean buscarRepitente(int[] repitentes, Alumno unAlumno)
 	{
 		boolean encontrado = false;
 		int inicio = 0;
@@ -185,63 +234,124 @@ public class SistemaAlumnos
 		do {
 			medio = (inicio + fin) / 2;
 			if (repitentes[medio] == legajo) {
+				// `legajo` está justo en el medio
 				encontrado = true;
 			} else if (repitentes[medio] > legajo) {
-			// `legajo` debe estar en el intervalo izquierdo
+				// `legajo` puede estar en el intervalo izquierdo
 				fin = medio;
 			} else {
-			// `legajo` debe estar en el intervalo derecho
+				// `legajo` puede estar en el intervalo derecho
 				inicio = medio + 1;
 			}
 		} while (!encontrado && (fin >= inicio));
 		return (encontrado);
 	}
 	/**
-	 * Según el promedio, se pasa o no de grado a los alumnos
+	 * Según la existencia de un alumno en el listado de repitentes,
+	 * se pasa o no de grado a los alumnos
+	 * -Requerido por `main`-
 	 */
-	public static Alumno[][] pasarDeGrado(Alumno[][] alumnos, Alumno[] repitentes)
+	public static Alumno[][] pasarDeGrado(Alumno[][] alumnos, int[] repitentes)
 	{
 		int i;
 		int j;
 		Alumno[][] actualizados = new Alumno[7][30];
+		Alumno[][] egresados = new Alumno[1][30];//FIXME ¿¿Debe ser arreglo??
 		for (i = 0; i < alumnos.length; i++) {
-			while (j < alumnos[0].length && (alumnos[i][j] != null)) {
+			j = 0;
+			while ((j < alumnos[0].length) && (alumnos[i][j] != null)) {
 				Alumno alumnito = alumnos[i][j];
-				if (buscarRepitente(alumnito);
+				if (!buscarRepitente(repitentes, alumnito))
+					// Si no es repitente, se promueve
+					alumnito.promover();
+				if (alumnito.getGrado() == -1) {
+					// Si el alumno egresó, se asigna al
+					// arreglo de egresados
+					asignarAlumno(egresados, alumnito);
+				} else {
+					// Si no egresó, va al listado ordinario
+					asignarAlumno(actualizados, alumnito);
+				}
+				j++;
+			}
+		}
+		return (actualizados);
+		//TODO ¿¿Cómo devuelvo el arreglo de egresados, en una tupla??
 	}
+	/**
+	 * Pide un grado y muestra el listado de alumnos de ese grado en
+	 * orden ascendente TODO USAR ORDEN LEXICOGRÁFICO PARA ORDENAR
+	 */
+	public static void mostrarAlumnosPorGrado(Alumno[][] infoAlumnos)
+	{
+		boolean valido = false;
+		do {
+			System.out.print("Ingrese un grado: ");
+			linea();
+			short grado = scan.nextShort();
+			if ((grado >= 1) && (grado <= 7)) {
+				valido = true;
+				// Muestra el listado
+				linea();
+				for (int i = 0; i < infoAlumnos[grado].length; i++) {
+					if (infoAlumnos[grado][i] != null) {
+						System.out.println(infoAlumnos[grado][i].toString());
+					}
+				}
+			} else {
+				System.out.println("¡Grado inválido!");
+			}
+		} while (!valido);
+	}
+	/**
+	 * ALGORITMO PRINCIPAL
+	 */
 	public static void main(String[] args)
 	{
+		int opcionIn;
 		// Rutas relativas a los ficheros de lectura
 		String listaAlumnos = "Data/ListaAlumnos.txt";
 		String listaDesaprobados = "Data/ListaDesaprobados.txt";
+		int[] legajosRepitentes;//FIXME
+		Alumno[][] infoAlumnos;//FIXME
 		do {
 			// Menú
-			int opcionIn = mostrarMenu();
+			opcionIn = mostrarMenu();
 			switch (opcionIn) {
 			case 1:
-				Alumno[][] infoAlumnos = cargarAlumnos(listaAlumnos);
-				int[] legajosRepitentes = cargarAlumnosDes(listaDesaprobados);
+				// Cargar datos en las estructuras
+				//Alumno[][] infoAlumnos = cargarAlumnos(listaAlumnos);
+				//int[] legajosRepitentes = cargarAlumnosDes(listaDesaprobados);
+				infoAlumnos = cargarAlumnos(listaAlumnos);
+				legajosRepitentes = cargarAlumnosDes(listaDesaprobados);
+				// Ordenar el listado de repitentes
+				ordenarRepitentes(legajosRepitentes);
 				System.out.println("¡Alumnos cargados!");
 				break;
 			case 2:
+				// Pasar de grado
 				if (!verificarMatrizCargada(infoAlumnos)) {
 					System.out.println("¡Primero debe cargar la información!");
 				} else {
 					infoAlumnos = pasarDeGrado(infoAlumnos, legajosRepitentes);
+					System.out.println("¡Hecho!");
 				}
 				break;
 			case 3:
+				// Mostrar la lista de alumnos de un grado
+				// ordenada por nombres en forma ascendente
 				if (!verificarMatrizCargada(infoAlumnos)) {
 					System.out.println("¡Primero debe cargar la información!");
 				} else {
-					pasarDeGrado();
+					mostrarAlumnosPorGrado(infoAlumnos);
+					//TODO
 				}
 				break;
 			case 4:
 				if (!verificarMatrizCargada(infoAlumnos)) {
 					System.out.println("¡Primero debe cargar la información!");
 				} else {
-					pasarDeGrado();
+					//TODO
 				}
 				break;
 			case 5:
@@ -252,29 +362,5 @@ public class SistemaAlumnos
 				break;
 			}
 		} while (opcionIn != 0);
-		//////// TEST ////////
-		System.out.println("TEST...XD");
-		for (int i = 0; i < legajosRepitentes.length; i++) {
-			System.out.println(legajosRepitentes[i]);
-		}
-		System.out.println("TEST...XD");
-		for (int j = 0; j < infoAlumnos.length; j++) {
-			System.out.println("----------------------------");
-			System.out.println("----------------------------");
-			for (int k = 0; k < infoAlumnos[j].length; k++) {
-				if (infoAlumnos[j][k] != null) {
-					System.out.println(infoAlumnos[j][k].toString());
-				}
-				System.out.println("----------------------------");
-			}
-		}
 	}
 }
-/**
- * Módulo recursivo para leer un fichero
- */
-//public static String leerLinea(String nombreArchivo, int numeroLinea)
-//	throws IOException
-//{
-//	//TODO
-//}
