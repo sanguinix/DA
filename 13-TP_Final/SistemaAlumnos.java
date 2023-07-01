@@ -262,23 +262,29 @@ public class SistemaAlumnos
 		Alumno[][] actualizados = new Alumno[7][30];
 		for (i = 0; i < alumnos.length; i++) {
 			j = 0;
+			System.out.println("Paso: " + i);
 			while ((j < alumnos[0].length) && (alumnos[i][j] != null)) {
+				System.out.println("--Paso: " + j);
 				Alumno alumnito = alumnos[i][j];
 				if (!buscarRepitente(repitentes, alumnito))
 					// Si no es repitente, se promueve
 					alumnito.promover();
+				System.out.println("---Pasando A...");
 				if (alumnito.getGrado() == -1) {
 					// Si el alumno egresó, se asigna a la
 					// estructura de egresados
 					asignarAlumno(egresados, alumnito);
+					System.out.println("---Pasando B...");
 				} else {
 					// Si no egresó, va al listado ordinario
 					asignarAlumno(actualizados, alumnito);
+					System.out.println("---Pasando C...");
 				}
 				j++;
 			}
 		}
 		alumnos = actualizados;
+		//return actualizados;
 	}
 	/**
 	 * Pide un grado y muestra el listado de alumnos de ese grado en
@@ -317,6 +323,7 @@ public class SistemaAlumnos
 		int cantidadAlumnos;
 		int vacantes = 0;
 		for (i = 0; i < alumnos.length; i++) {
+			j = 0;
 			cantidadAlumnos = 0;
 			while ((j < alumnos[0].length) && (alumnos[i][j] != null))
 				cantidadAlumnos += 1;
@@ -350,32 +357,39 @@ public class SistemaAlumnos
 	 */
 	public static void main(String[] args)
 	{
-		int opcionIn;
+		short opcionIn;
 		// Rutas relativas a los ficheros de lectura
 		String listaAlumnos = "Data/ListaAlumnos.txt";
 		String listaDesaprobados = "Data/ListaDesaprobados.txt";
 		int[] legajosRepitentes = new int[100];
 		Alumno[][] infoAlumnos = new Alumno[7][30];
-		Alumno[][] egresados;
+		Alumno[][] egresados = new Alumno[1][30];
 		do {
 			// Menú
 			opcionIn = mostrarMenu();
 			switch (opcionIn) {
+			case 0:
+				linea();
+				System.out.println("¡Hasta luego! XD");
+				break;
 			case 1:
 				// Cargar datos en las estructuras
-				egresados = new Alumno[1][30];
 				cargarAlumnos(listaAlumnos, infoAlumnos);
 				cargarAlumnosDes(listaDesaprobados, legajosRepitentes);
 				// Ordenar el listado de repitentes
 				ordenarRepitentes(legajosRepitentes);
+				linea();
 				System.out.println("¡Alumnos cargados!");
 				break;
 			case 2:
 				// Pasar de grado
 				if (!verificarMatrizCargada(infoAlumnos)) {
+					linea();
 					System.out.println("¡Primero debe cargar la información!");
 				} else {
+					linea();
 					pasarDeGrado(infoAlumnos, legajosRepitentes, egresados);
+					linea();
 					System.out.println("¡Hecho!");
 				}
 				break;
