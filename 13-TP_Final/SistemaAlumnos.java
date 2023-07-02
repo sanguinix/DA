@@ -135,6 +135,15 @@ public class SistemaAlumnos
 				}
 				i++;
 			}
+		} else if (grado == -1) {
+			// Si el grado es -1, es un egresado
+			while ((i < alumnos[0].length) && !libre) {
+				if (alumnos[0][i] == null) {
+					alumnos[0][i] = alumno;
+					libre = true;
+				}
+				i++;
+			}
 		}
 	}
 	/**
@@ -265,7 +274,7 @@ public class SistemaAlumnos
 				encontrado = true;
 			} else if (repitentes[medio] > legajo) {
 				// `legajo` puede estar en el intervalo izquierdo
-				fin = medio;
+				fin = medio - 1;
 			} else {
 				// `legajo` puede estar en el intervalo derecho
 				inicio = medio + 1;
@@ -278,40 +287,32 @@ public class SistemaAlumnos
 	 * se pasa o no de grado a los alumnos
 	 * -Requerido por `main()`-
 	 */
-	public static void pasarDeGrado(Alumno[][] alumnos, int[] repitentes, Alumno[][] egresados)
+	public static Alumno[][] pasarDeGrado(Alumno[][] alumnos, int[] repitentes, Alumno[][] egresados)
 	{
 		int i;
 		int j;
 		Alumno[][] actualizados = new Alumno[7][30];
 		for (i = 0; i < alumnos.length; i++) {
 			j = 0;
-			System.out.println("Paso: " + i);
 			while ((j < alumnos[0].length) && (alumnos[i][j] != null)) {
-				System.out.println("--Paso: " + j);
-				System.out.println(alumnos[i][j].toString());
 				Alumno alumnito = alumnos[i][j];
 				if (!buscarRepitente(repitentes, alumnito)) {
 					// Si no es repitente, se promueve
 					alumnito.promover();
 				}
-				System.out.println("---Pasando A...");
 				if (alumnito.getGrado() == -1) {
 					// Si el alumno egresó, se asigna a la
 					// estructura de egresados
 					asignarAlumno(egresados, alumnito);
-					System.out.println("---Pasando B...");
 				} else {
 					// Si no egresó, va al listado ordinario
-					System.out.println("---Pasando C...");
 					asignarAlumno(actualizados, alumnito);
-					System.out.println("---Pasando C...");
 				}
-				System.out.println(actualizados[i][j].toString());
 				j++;
 			}
 		}
-		alumnos = actualizados;
-		//return actualizados;
+		//alumnos = actualizados;
+		return actualizados;
 	}
 	/**
 	 * Pide un grado y muestra el listado de alumnos de ese grado en
@@ -449,8 +450,11 @@ public class SistemaAlumnos
 					linea();
 					System.out.println("¡Primero debe cargar la información!");
 				} else {
+					// Cada vez que se pase de grado,
+					// habrá nuevos egresados
+					egresados = new Alumno[1][30];
 					linea();
-					pasarDeGrado(infoAlumnos, legajosRepitentes, egresados);
+					infoAlumnos = pasarDeGrado(infoAlumnos, legajosRepitentes, egresados);
 					linea();
 					System.out.println("¡Hecho!");
 				}
