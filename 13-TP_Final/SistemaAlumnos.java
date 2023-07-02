@@ -34,7 +34,7 @@ public class SistemaAlumnos
 		short opcion;
 		do {
 			linea();
-			System.out.println("\t\tMENU");
+			System.out.print("-------------[MENU]-------------");
 			linea();
 			System.out.println("1) Cargar información de alumnos");
 			System.out.println("2) Pasar de grado a los alumnos");
@@ -75,8 +75,7 @@ public class SistemaAlumnos
 			BufferedReader bufferLectura = new BufferedReader(lectorArchivo);
 			/**
 			 * Mientras el buffer de lectura tenga algo por leer
-			 * desde el archivo, imprimimos cada linea por
-			 * pantalla y la grabamos tal cual en el archivo.
+			 * desde el archivo, lee la linea
 			 */
 			while ((linea = bufferLectura.readLine()) != null) {
 				/**
@@ -311,8 +310,51 @@ public class SistemaAlumnos
 				j++;
 			}
 		}
-		//alumnos = actualizados;
-		return actualizados;
+		return (actualizados);
+	}
+	/**
+	 * Cuenta la cantidad de alumnos en un grado -elementos no nulos-
+	 * -Requerido por `calcularPromedioGrado()`-
+	 */
+	public static int contarAlumnosGrado(Alumno[] grado, int contador) {
+		int total = 0;
+		if ((grado[contador] != null) && (contador < grado.length)) {
+			total = 1 + contarAlumnosGrado(grado, contador + 1);
+		}
+		return (total);
+	}
+	/**
+	 * Calcula el promedio de un grado
+	 * -Requerido por `calcularPromedios()`-
+	 */
+	public static double calcularPromedioGrado(Alumno[] grado, int contador) {
+		double total = 0;
+		if ((contador < grado.length) && (grado[contador] != null)) {
+			total += grado[contador].getPromedioGeneral()
+				+ calcularPromedioGrado(grado, contador + 1);
+		}
+		return (total);
+	}
+	/**
+	 * Calcula el promedio de todos los grados
+	 * -Requerido por `main()`-
+	 */
+	public static void calcularPromedios(Alumno[][] alumnos, double[] promedios, int fila) {
+		if (fila < alumnos.length) {
+			promedios[fila] = calcularPromedioGrado(alumnos[fila], 0)
+				/ contarAlumnosGrado(alumnos[fila], 0);
+			calcularPromedios(alumnos, promedios, fila + 1);
+		}
+	}
+	/**
+	 * Muestra los promedios calculados por grado
+	 * -Requerido por `main()`-
+	 */
+	public static void mostrarPromedios(double[] promedios) {
+		for (int i = 0; i < promedios.length; i++) {
+			System.out.println("Promedio del grado "
+					+ (i + 1) + ": " + promedios[i]);
+		}
 	}
 	/**
 	 * Pide un grado y muestra el listado de alumnos de ese grado en
@@ -343,19 +385,55 @@ public class SistemaAlumnos
 		} while (!valido);
 	}
 	/**
-	 * Muestra los datos de los alumnos egresados ordenados según su
-	 * promedio en forma descendente --(HeapSort)--
-	 * Muestra el tiempo de ejecución
-	 * -Requerido por `main()`-
+	 * Intercambia posiciones de dos elementos en un arreglo de Alumno
+	 * -Requerido por `mostrarEgresados()` y `mostrarEgresadosBS()`-
 	 */
-
+	public static void intercambiarAlumnos(Alumno[] alumnos, int indice)
+	{
+		Alumno auxiliar = alumnos[indice];
+		alumnos[indice] = alumnos[indice + 1];
+		alumnos[indice + 1] = auxiliar;
+	}
 	/**
 	 * Muestra los datos de los alumnos egresados ordenados según su
-	 * promedio en forma descendente --(BubbleSort Mejorado)--
+	 * promedio en forma descendente --[HeapSort]--
 	 * Muestra el tiempo de ejecución
 	 * -Requerido por `main()`-
 	 */
-
+	public static void mostrarEgresados(Alumno[] egresados)
+	{
+		//TODO
+	}
+	/**
+	 * Muestra los datos de los alumnos egresados ordenados según su
+	 * promedio en forma descendente --[BubbleSort Mejorado]--
+	 * Muestra el tiempo de ejecución
+	 * -Requerido por `main()`-
+	 */
+	public static void mostrarEgresadosBS(Alumno[] egresados)
+	{
+		boolean ordenado = false;
+		int i = egresados.length;
+		int j;
+		while ((i > 0) && !ordenado) {
+			ordenado = true;
+			j = 0;
+			while ((j < i) && (egresados[j + 1] != null)) {
+				if (egresados[j].getPromedioGeneral()
+				< egresados[j + 1].getPromedioGeneral()) {
+					intercambiarAlumnos(egresados, j);
+					ordenado = false;
+				}
+				j++;
+			}
+			i--;
+		}
+		i = 0;
+		while ((i < egresados.length) && (egresados[i] != null)) {
+			System.out.println(egresados[i].toString());
+			i++;
+		}
+	}
 	/**
 	 * Cuenta los espacios nulos en una matriz de `Alumno`
 	 * -Requerido por `mostrarVacantes()`-
@@ -425,6 +503,7 @@ public class SistemaAlumnos
 		String listaAlumnos = "Data/ListaAlumnos.txt";
 		String listaDesaprobados = "Data/ListaDesaprobados.txt";
 		int[] legajosRepitentes = new int[100];
+		double[] promedios = new double[7];
 		Alumno[][] infoAlumnos = new Alumno[7][30];
 		Alumno[][] egresados = new Alumno[1][30];
 		do {
@@ -454,14 +533,23 @@ public class SistemaAlumnos
 					// habrá nuevos egresados
 					egresados = new Alumno[1][30];
 					linea();
-					infoAlumnos = pasarDeGrado(infoAlumnos, legajosRepitentes, egresados);
+					infoAlumnos = pasarDeGrado(infoAlumnos
+					, legajosRepitentes, egresados);
 					linea();
 					System.out.println("¡Hecho!");
 				}
 				break;
 			case 3:
-				// Mostrar promedio general de cada grado (RECURSIVO)
-				//TODO
+				if (!verificarMatrizCargada(infoAlumnos)) {
+					linea();
+					System.out.println("¡Primero debe cargar la información!");
+				} else {
+					// Mostrar promedio general de cada grado (RECURSIVO)
+					linea();
+					calcularPromedios(infoAlumnos, promedios, 0);
+					mostrarPromedios(promedios);
+				}
+				break;
 			case 4:
 				// Mostrar la lista de alumnos de un grado
 				// ordenada por nombres en forma ascendente
@@ -477,7 +565,20 @@ public class SistemaAlumnos
 				} else if (!verificarMatrizCargada(egresados)) {
 					System.out.println("¡Aún no hay egresados!");
 				} else {
-					//TODO
+					long inicio = 0;
+					long fin = 0;
+					//Ver los datos de los alumnos egresados
+					//ordenados según su promedio en forma descendente
+					linea();
+					inicio = System.nanoTime();
+					//mostrarEgresados(egresados[0]);
+					mostrarEgresadosBS(egresados[0]);
+					fin = System.nanoTime();
+					linea();
+					System.out.println("Tiempo de ejecución: "
+							+ (fin - inicio)
+							+ "nanosegundos.");
+					linea();
 				}
 				break;
 			case 6:
