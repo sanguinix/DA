@@ -51,6 +51,11 @@ public class Alumno
 	{
 		return (this.promedioGeneral);
 	}
+	public String getNombreComp()
+	{
+		//return ((this.nombre + this.apellido).toLowerCase());
+		return ((this.apellido + this.nombre).toLowerCase());
+	}
 	/**
 	 * Propios del Tipo
 	 */

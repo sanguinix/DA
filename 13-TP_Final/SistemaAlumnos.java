@@ -50,7 +50,7 @@ public class SistemaAlumnos
 			linea();
 			System.out.println("Ingrese una opción: ");
 			opcion = scan.nextShort();
-			if ((opcion >= 0) && (opcion <= 6))
+			if ((opcion >= 0) && (opcion <= 7))
 				valida = true;
 		} while (!valida);
 		return (opcion);
@@ -224,6 +224,29 @@ public class SistemaAlumnos
 		}
 	}
 	/**
+	 * Ordena un arreglo de alumnos de un grado de forma ascendente según
+	 * el orden lexicográfico de la concatenación `nombre`+`apellido`
+	 * -Requerido por `mostrarAlumnosPorGrado()`-
+	 */
+	public static void ordenarPorNombre(Alumno[] unGrado)
+	{
+		boolean ordenado = false;
+		int i = 0;
+		int j = 0;
+		while ((i < unGrado.length) && (unGrado[i] != null)) {
+			j = i + 1;
+			while ((j < unGrado.length) && (unGrado[j] != null)) {
+				if (unGrado[i].getNombreComp().compareTo(unGrado[j].getNombreComp()) > 0) {
+					Alumno auxiliar = unGrado[i];
+					unGrado[i] = unGrado[j];
+					unGrado[j] = auxiliar;
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	/**
 	 * Busca un alumno en el listado de repitentes y retorna TRUE
 	 * si fue encontrado (mediante búsqueda binaria)
 	 * -Requerido por `pasarDeGrado()`-
@@ -265,10 +288,12 @@ public class SistemaAlumnos
 			System.out.println("Paso: " + i);
 			while ((j < alumnos[0].length) && (alumnos[i][j] != null)) {
 				System.out.println("--Paso: " + j);
+				System.out.println(alumnos[i][j].toString());
 				Alumno alumnito = alumnos[i][j];
-				if (!buscarRepitente(repitentes, alumnito))
+				if (!buscarRepitente(repitentes, alumnito)) {
 					// Si no es repitente, se promueve
 					alumnito.promover();
+				}
 				System.out.println("---Pasando A...");
 				if (alumnito.getGrado() == -1) {
 					// Si el alumno egresó, se asigna a la
@@ -277,9 +302,11 @@ public class SistemaAlumnos
 					System.out.println("---Pasando B...");
 				} else {
 					// Si no egresó, va al listado ordinario
+					System.out.println("---Pasando C...");
 					asignarAlumno(actualizados, alumnito);
 					System.out.println("---Pasando C...");
 				}
+				System.out.println(actualizados[i][j].toString());
 				j++;
 			}
 		}
@@ -288,8 +315,8 @@ public class SistemaAlumnos
 	}
 	/**
 	 * Pide un grado y muestra el listado de alumnos de ese grado en
-	 * orden ascendente TODO USAR ORDEN LEXICOGRÁFICO PARA ORDENAR (cadena.compareTo(cadena))
-	 * -Requerido por `main()`
+	 * orden ascendente 
+	 * -Requerido por `main()`-
 	 */
 	public static void mostrarAlumnosPorGrado(Alumno[][] infoAlumnos)
 	{
@@ -300,11 +327,13 @@ public class SistemaAlumnos
 			linea();
 			if ((grado >= 1) && (grado <= 7)) {
 				valido = true;
+				Alumno[] alumnosPorNombre = infoAlumnos[grado - 1];
+				// Ordena el grado según nombre
+				ordenarPorNombre(alumnosPorNombre);
 				// Muestra el listado
-				linea();
-				for (int i = 0; i < infoAlumnos[grado].length; i++) {
-					if (infoAlumnos[grado][i] != null) {
-						System.out.println(infoAlumnos[grado][i].toString());
+				for (int i = 0; i < alumnosPorNombre.length; i++) {
+					if (alumnosPorNombre[i] != null) {
+						System.out.println(alumnosPorNombre[i].toString());
 					}
 				}
 			} else {
@@ -313,42 +342,75 @@ public class SistemaAlumnos
 		} while (!valido);
 	}
 	/**
-	 * Muestra la cantidad de vacantes del colegio -espacios nulos-
-	 * -Requerido por `main`-
+	 * Muestra los datos de los alumnos egresados ordenados según su
+	 * promedio en forma descendente --(HeapSort)--
+	 * Muestra el tiempo de ejecución
+	 * -Requerido por `main()`-
 	 */
-	public static void mostrarVacantes(Alumno[][] alumnos)
-	{
-		int i;
-		int j;
-		int cantidadAlumnos;
+
+	/**
+	 * Muestra los datos de los alumnos egresados ordenados según su
+	 * promedio en forma descendente --(BubbleSort Mejorado)--
+	 * Muestra el tiempo de ejecución
+	 * -Requerido por `main()`-
+	 */
+
+	/**
+	 * Cuenta los espacios nulos en una matriz de `Alumno`
+	 * -Requerido por `mostrarVacantes()`-
+	 */
+	public static int contarVacantes(Alumno[][] alumnos, int i, int j) {
 		int vacantes = 0;
-		for (i = 0; i < alumnos.length; i++) {
-			j = 0;
-			cantidadAlumnos = 0;
-			while ((j < alumnos[0].length) && (alumnos[i][j] != null))
-				cantidadAlumnos += 1;
-			vacantes += (30 - cantidadAlumnos);
+		if (i < alumnos.length) {
+			if (j < alumnos[0].length) {
+				if (alumnos[i][j] == null) {
+					// Espacio nulo = vacante
+					vacantes = 1 + contarVacantes(alumnos, i, j + 1);
+				} else {
+					vacantes = contarVacantes(alumnos, i, j + 1);
+				}
+			} else {
+				// Columna vuelve a 0, baja una fila
+				vacantes = contarVacantes(alumnos, i + 1, 0);
+			}
 		}
-		linea();
-		System.out.println("La cantidad de vacantes en el colegio es de: " + vacantes);
-		linea();
+		return (vacantes);
 	}
 	/**
-	 * Muestra la posición de un alumno según su legajo en la matríz
+	 * Muestra la cantidad de vacantes del colegio -espacios nulos-
+	 * -Requerido por `main()`-
+	 */
+	public static void mostrarVacantes(Alumno[][] alumnos) {
+		int vacantes = contarVacantes(alumnos, 0, 0);
+		linea();
+		System.out.println("La cantidad de vacantes en el colegio es de: " + vacantes);
+	}
+	/**
+	 * Muestra la posición de un alumno según su grado y legajo en la
+	 * matriz
+	 * -Requerido por `main()`-
 	 */
 	public static void mostrarPosicionAlumno(Alumno[][] alumnos)
 	{
 		boolean valido = false;
+		int grado;
 		int legajo;
 		do {
-			System.out.println("Ingrese el número de legajo del alumno: ");
-			legajo = scan.nextInt();
-			if ((legajo >= 1000) && (legajo <= 9999)) {
-				valido = true;
-				//TODO Buscar el legajo en la matriz
-				//La matriz debe estar ordenada
+			System.out.println("Ingrese el grado del alumno: ");
+			grado = scan.nextInt();
+			if ((grado >= 1) && (grado <= 7)) {
+				System.out.println("Ingrese el número de legajo del alumno: ");
+				legajo = scan.nextInt();
+				if ((legajo >= 1000) && (legajo <= 9999)) {
+					valido = true;
+					System.out.println("Buscando...XD");
+					//TODO Buscar el legajo en la matriz
+					//La matriz debe estar ordenada
+				} else {
+					System.out.println("¡Legajo inválido!");
+				}
 			} else {
-				System.out.println("¡Legajo inválido!");
+				System.out.println("¡Grado Inválido!");
 			}
 		} while (!valido);
 	}
@@ -403,12 +465,13 @@ public class SistemaAlumnos
 					System.out.println("¡Primero debe cargar la información!");
 				} else {
 					mostrarAlumnosPorGrado(infoAlumnos);
-					//TODO
 				}
 				break;
 			case 5:
 				if (!verificarMatrizCargada(infoAlumnos)) {
 					System.out.println("¡Primero debe cargar la información!");
+				} else if (!verificarMatrizCargada(egresados)) {
+					System.out.println("¡Aún no hay egresados!");
 				} else {
 					//TODO
 				}
